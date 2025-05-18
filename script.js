@@ -1,31 +1,62 @@
-document.addEventListener('DOMContentLoaded', () => {
-  const toCounter = document.getElementById('to-counter');
-  if (toCounter) {
-    toCounter.addEventListener('click', () => {
-      window.location.href = 'counter.html';
+// Common script for navigation and page-specific logic
+
+function createMenu() {
+  const hamburger = document.createElement('button');
+  hamburger.id = 'hamburger';
+  hamburger.innerHTML = '\u2630';
+  document.body.appendChild(hamburger);
+
+  const dropdown = document.createElement('div');
+  dropdown.id = 'menu-dropdown';
+  document.body.appendChild(dropdown);
+
+  function addLink(text, href) {
+    const btn = document.createElement('button');
+    btn.textContent = text;
+    btn.addEventListener('click', () => {
+      window.location.href = href;
     });
+    dropdown.appendChild(btn);
   }
 
-  const toTimer = document.getElementById('to-timer');
-  if (toTimer) {
-    toTimer.addEventListener('click', () => {
-      window.location.href = 'timer.html';
-    });
-  }
+  addLink('Landing Page', 'index.html');
+  addLink('Counter Page', 'counter.html');
+  addLink('Timer Page', 'timer.html');
 
-  const adminButton = document.getElementById('admin-button');
-  if (adminButton) {
-    adminButton.addEventListener('click', () => {
-      window.location.href = 'login.html';
-    });
-  }
-
-  const backButton = document.getElementById('back-button');
-  if (backButton) {
-    backButton.addEventListener('click', () => {
+  if (localStorage.getItem('loggedIn') === 'true') {
+    addLink('Admin Panel', 'admin.html');
+    const logout = document.createElement('button');
+    logout.textContent = 'Logout';
+    logout.addEventListener('click', () => {
+      localStorage.removeItem('loggedIn');
       window.location.href = 'index.html';
     });
+    dropdown.appendChild(logout);
+  } else {
+    addLink('Login', 'login.html');
   }
+
+  function closeMenu(e) {
+    if (e && (dropdown.contains(e.target) || e.target === hamburger)) {
+      return;
+    }
+    dropdown.classList.remove('show');
+    document.removeEventListener('click', closeMenu);
+  }
+
+  hamburger.addEventListener('click', (e) => {
+    e.stopPropagation();
+    dropdown.classList.toggle('show');
+    if (dropdown.classList.contains('show')) {
+      document.addEventListener('click', closeMenu);
+    } else {
+      document.removeEventListener('click', closeMenu);
+    }
+  });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  createMenu();
 
   const counterButton = document.getElementById('counter-button');
   if (counterButton) {
@@ -76,13 +107,5 @@ document.addEventListener('DOMContentLoaded', () => {
     if (localStorage.getItem('loggedIn') !== 'true') {
       window.location.href = 'login.html';
     }
-  }
-
-  const logoutButton = document.getElementById('logout-button');
-  if (logoutButton) {
-    logoutButton.addEventListener('click', () => {
-      localStorage.removeItem('loggedIn');
-      window.location.href = 'index.html';
-    });
   }
 });
