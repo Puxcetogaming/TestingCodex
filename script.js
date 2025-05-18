@@ -6,12 +6,14 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+
   const toTimer = document.getElementById('to-timer');
   if (toTimer) {
     toTimer.addEventListener('click', () => {
       window.location.href = 'timer.html';
     });
   }
+
 
   const backButton = document.getElementById('back-button');
   if (backButton) {
@@ -46,5 +48,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     updateTimer();
     setInterval(updateTimer, 1000);
+  }
+    let count = 0;
+    counterButton.addEventListener('click', () => {
+      count += 1;
+      counterButton.textContent = `Counter: ${count}`;
+    });
   }
 });
