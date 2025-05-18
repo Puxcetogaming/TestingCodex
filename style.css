@@ -2,8 +2,10 @@ body {
   background-color: #008080; /* dark aqua */
   color: white;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+  position: relative;
   height: 100vh;
   margin: 0;
   font-family: Arial, sans-serif;
@@ -12,4 +14,20 @@ body {
 #content {
   text-align: center;
   font-size: 2rem;
+}
+
+button {
+  background-color: white;
+  color: #008080;
+  border: none;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  margin-top: 1rem;
+  cursor: pointer;
+}
+
+#back-button {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
 }
