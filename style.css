@@ -31,3 +31,27 @@ button {
   top: 1rem;
   left: 1rem;
 }
+
+#admin-button {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+}
+
+#logout-button {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+}
+
+input {
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  border: none;
+}
+
+#admin-panel {
+  text-align: center;
+  font-size: 2rem;
+}

@@ -6,7 +6,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-
   const toTimer = document.getElementById('to-timer');
   if (toTimer) {
     toTimer.addEventListener('click', () => {
@@ -14,6 +13,12 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  const adminButton = document.getElementById('admin-button');
+  if (adminButton) {
+    adminButton.addEventListener('click', () => {
+      window.location.href = 'login.html';
+    });
+  }
 
   const backButton = document.getElementById('back-button');
   if (backButton) {
@@ -49,10 +54,35 @@ document.addEventListener('DOMContentLoaded', () => {
     updateTimer();
     setInterval(updateTimer, 1000);
   }
-    let count = 0;
-    counterButton.addEventListener('click', () => {
-      count += 1;
-      counterButton.textContent = `Counter: ${count}`;
+
+  const loginButton = document.getElementById('enter-button');
+  if (loginButton) {
+    if (localStorage.getItem('loggedIn') === 'true') {
+      window.location.href = 'admin.html';
+      return;
+    }
+    loginButton.addEventListener('click', () => {
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+      if (username === 'Admin' && password === '12345') {
+        localStorage.setItem('loggedIn', 'true');
+        window.location.href = 'admin.html';
+      }
+    });
+  }
+
+  const adminPanel = document.getElementById('admin-panel');
+  if (adminPanel) {
+    if (localStorage.getItem('loggedIn') !== 'true') {
+      window.location.href = 'login.html';
+    }
+  }
+
+  const logoutButton = document.getElementById('logout-button');
+  if (logoutButton) {
+    logoutButton.addEventListener('click', () => {
+      localStorage.removeItem('loggedIn');
+      window.location.href = 'index.html';
     });
   }
 });
